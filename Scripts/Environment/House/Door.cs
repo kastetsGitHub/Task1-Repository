@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class HouseGuard : MonoBehaviour
+public class Door : MonoBehaviour
 {
     [SerializeField] private UnityEvent<AudioClip> _startedAlarm;
     [SerializeField] private UnityEvent _stoppedAlarm;
