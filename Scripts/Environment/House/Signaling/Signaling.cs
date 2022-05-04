@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class AudioSystem : MonoBehaviour
+public class Signaling : MonoBehaviour
 {
     [SerializeField] private AudioSource _soundSource;
     [SerializeField] private float _quicknessOfVolume;
@@ -37,7 +37,6 @@ public class AudioSystem : MonoBehaviour
         StartCoroutine(RegulateVolume(Volume.Down));
     }
 
-
     private IEnumerator RegulateVolume(Volume volume)
     {
         _isPlay = false;
@@ -52,7 +51,7 @@ public class AudioSystem : MonoBehaviour
             while (currentTime < totalTime)
             {
                 currentTime = Time.time;
-                _soundSource.volume = Mathf.MoveTowards(_soundSource.volume, currentVolume, _quicknessOfVolume * Time.deltaTime);
+                Regulate();
                 yield return null;
             }
         }
@@ -63,9 +62,14 @@ public class AudioSystem : MonoBehaviour
 
             while (_soundSource.volume > currentVolume)
             {
-                _soundSource.volume = Mathf.MoveTowards(_soundSource.volume, currentVolume, _quicknessOfVolume * Time.deltaTime);
+                Regulate();
                 yield return null;
             }
+        }
+
+        void Regulate()
+        {
+            _soundSource.volume = Mathf.MoveTowards(_soundSource.volume, currentVolume, _quicknessOfVolume * Time.deltaTime);
         }
 
         _isPlay = true;
